@@ -17,7 +17,7 @@
             href="https://developers.google.com/recaptcha/docs/v3" target="_blank">documentation</a>).</p>
     <p>Site key: <code>6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw</code></p>
     <p>Secret key: <code>6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2</code></p>
-    <p>Action name: <code>test-action</code></p>
+    <p>Action name: <code>test_action</code></p>
 </div>
 
 <div class="container">
@@ -57,7 +57,7 @@
     $getToken.addEventListener('click', function () {
         grecaptcha.ready(function () {
             grecaptcha
-                .execute('6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw', {action: 'test-action'})
+                .execute('6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw', {action: 'test_action'})
                 .then(function (token) {
                     $token.value = token;
                 });
