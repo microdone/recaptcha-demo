@@ -12,12 +12,14 @@
           crossorigin="anonymous" />
 <body>
 <div class="jumbotron">
-    <h1 class="display-4">Google ReCaptcha <strong>v3</strong> test</h1>
-    <p class="lead">This is a simple page with google recaptcha (<a
-            href="https://developers.google.com/recaptcha/docs/v3" target="_blank">documentation</a>).</p>
-    <p>Site key: <code>6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw</code></p>
-    <p>Secret key: <code>6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2</code></p>
-    <p>Action name: <code>test_action</code></p>
+    <div class="container">
+        <h1 class="display-4">Google ReCaptcha <strong>v3</strong> test</h1>
+        <p class="lead">This is a simple page with google recaptcha (<a
+                href="https://developers.google.com/recaptcha/docs/v3" target="_blank">documentation</a>).</p>
+        <p>Site key: <code>6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw</code></p>
+        <p>Secret key: <code>6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2</code></p>
+        <p>Action name: <code>test_action</code></p>
+    </div>
 </div>
 
 <div class="container">
@@ -38,7 +40,7 @@
         <li>
             <p class="my-3">Verify token: <code>curl -s
                 --data "secret=6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2"
-                --data "response=<span id="verify-token">NO_TOKEN_YET</span>" 
+                --data "response=<span id="verify-token">NO_TOKEN_YET</span>"
                 'https://www.google.com/recaptcha/api/siteverify' | jq</code></p>
         </li>
     </ul>
