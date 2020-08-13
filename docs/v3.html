@@ -36,9 +36,10 @@
             </p>
         </li>
         <li>
-            <p class="my-3">Verify token: <code>curl 'https://www.google.com/recaptcha/api/siteverify'
+            <p class="my-3">Verify token: <code>curl -s
                 --data "secret=6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2"
-                --data "response=<span id="verify-token">NO_TOKEN_YET</span>" | jq</code></p>
+                --data "response=<span id="verify-token">NO_TOKEN_YET</span>" 
+                'https://www.google.com/recaptcha/api/siteverify' | jq</code></p>
         </li>
     </ul>
 </div>
