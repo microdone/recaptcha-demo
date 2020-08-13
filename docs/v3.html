@@ -1,11 +1,83 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ReCaptcha v3 test page</title>
-<body>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ReCaptcha v3 test page</title>
 
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous" />
+<body>
+<div class="jumbotron">
+    <h1 class="display-4">Google ReCaptcha <strong>v3</strong> test</h1>
+    <p class="lead">This is a simple page with google recaptcha (<a
+            href="https://developers.google.com/recaptcha/docs/v3" target="_blank">documentation</a>).</p>
+    <p>Site key: <code>6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw</code></p>
+    <p>Secret key: <code>6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2</code></p>
+    <p>Action name: <code>test-action</code></p>
+</div>
+
+<div class="container">
+    <p>Push the button below for getting token and then verify it:</p>
+
+    <ul class="list-unstyled">
+        <li>
+            <button class="btn btn-primary" id="get-token" role="button">
+                Get token: <tt>grecaptcha.execute()</tt>
+            </button>
+        </li>
+        <li>
+            <p class="my-3">
+                <label for="token">Your token is:</label>
+                <input type="text" id="token" class="form-control" placeholder="not executed yet">
+            </p>
+        </li>
+        <li>
+            <button class="btn btn-primary" id="verify-token" role="button">
+                Verify token: <tt>google.com/recaptcha/api/siteverify</tt>
+            </button>
+        </li>
+        <li>
+            <p class="my-3">Verification result: <code id="verification-result">not executed yet</code></p>
+        </li>
+    </ul>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js?render=6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var $getToken = document.getElementById('get-token'),
+        $token = document.getElementById('token'),
+        $verifyToken = document.getElementById('verify-token'),
+        $verificationResult = document.getElementById('verification-result');
+
+    $getToken.addEventListener('click', function () {
+        grecaptcha.ready(function () {
+            grecaptcha
+                .execute('6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw', {action: 'test-action'})
+                .then(function (token) {
+                    $token.value = token;
+                });
+        });
+    });
+
+    $verifyToken.addEventListener('click', function () {
+        axios.post('https://www.google.com/recaptcha/api/siteverify', {
+                secret: '6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2',
+                response: $token.value,
+                //remoteip: 'client.ip.goes.here',
+            })
+            .then(function (response) {
+                $verificationResult.textContent = response;
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    });
+
+</script>
 </body>
 </html>
