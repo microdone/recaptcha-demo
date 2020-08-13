@@ -17,7 +17,7 @@
             href="https://developers.google.com/recaptcha/docs/v3" target="_blank">documentation</a>).</p>
     <p>Site key: <code>6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw</code></p>
     <p>Secret key: <code>6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2</code></p>
-    <p>Action name: <code>test_action</code></p>
+    <p>Action name: <code>test-action</code></p>
 </div>
 
 <div class="container">
@@ -36,46 +36,28 @@
             </p>
         </li>
         <li>
-            <button class="btn btn-primary" id="verify-token" role="button">
-                Verify token: <tt>google.com/recaptcha/api/siteverify</tt>
-            </button>
-        </li>
-        <li>
-            <p class="my-3">Verification result: <code id="verification-result">not executed yet</code></p>
+            <p class="my-3">Verify token: <code>curl 'https://www.google.com/recaptcha/api/siteverify'
+                --data "secret=6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2"
+                --data "response=<span id="verify-token">NO_TOKEN_YET</span>" | jq</code></p>
         </li>
     </ul>
 </div>
 
-<script src="https://www.google.com/recaptcha/api.js?render=6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     var $getToken = document.getElementById('get-token'),
         $token = document.getElementById('token'),
-        $verifyToken = document.getElementById('verify-token'),
-        $verificationResult = document.getElementById('verification-result');
+        $verifyToken = document.getElementById('verify-token');
 
     $getToken.addEventListener('click', function () {
         grecaptcha.ready(function () {
             grecaptcha
-                .execute('6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw', {action: 'test_action'})
+                .execute('6LcqX74ZAAAAAOrHk6eLOOKku8LMDZQHaJzu19uw', {action: 'test-action'})
                 .then(function (token) {
                     $token.value = token;
+                    $verifyToken.innerText = token;
                 });
         });
-    });
-
-    $verifyToken.addEventListener('click', function () {
-        axios.post('https://www.google.com/recaptcha/api/siteverify', {
-                secret: '6LcqX74ZAAAAAGKsmcyNnFkkjK71xVbFZqmC77z2',
-                response: $token.value,
-                //remoteip: 'client.ip.goes.here',
-            })
-            .then(function (response) {
-                $verificationResult.textContent = response;
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
     });
 
 </script>
